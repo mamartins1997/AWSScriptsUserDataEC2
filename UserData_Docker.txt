@@ -1,0 +1,27 @@
+#! /bin/sh
+
+########################################
+##### USE THIS WITH AMAZON LINUX 2 #####
+########################################
+
+# get admin privileges
+sudo su
+
+#Install Docker and run Portainer
+yum update -y
+
+amazon-linux-extras install docker
+
+service docker start
+
+usermod -a -G docker ec2-user
+
+chkconfig docker on
+
+cd /home
+
+mkdir portainer
+
+docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /home/portainer/portainer_ce:/data portainer/portainer-ce
+
+senha: nestGeek1828
